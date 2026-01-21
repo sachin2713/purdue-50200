@@ -51,27 +51,64 @@ Application Intake
 
 (See architecture diagram below.)
 
-flowchart TB
-    A[Application Intake<br/>Forms · PDFs · Bulk Uploads] --> B[Document Processing<br/>OCR · Text Extraction · PII Masking]
-
-    B --> C[LLM Agent 1<br/>Data Extraction]
-    C -->|Structured JSON| D[ML Validation & Anomaly Detection]
-
-    D --> E[LLM Agent 2<br/>Eligibility Screening]
-    E --> F[ML Confidence Scoring]
-
-    F --> G{Decision Router}
-    G -->|Low Risk| H[Auto-Process]
-    G -->|Needs Correction| I[Applicant Feedback]
-    G -->|Exceptions| J[Human Review]
-
-    H --> K[Reviewer Dashboard]
-    I --> K
-    J --> K
-
-    K --> L[Final Decision & Audit Log]
-
----
++----------------------------------------------------+
+|                Application Intake                  |
+|        (Forms | PDFs | Bulk Uploads | Zendesk)     |
++---------------------------+------------------------+
+                            |
+                            v
++----------------------------------------------------+
+|        Document Processing & Normalization         |
+|     OCR | Text Extraction | PII Masking | Tagging  |
++---------------------------+------------------------+
+                            |
+                            v
++----------------------------------------------------+
+|      LLM Agent 1 – Data Extraction                 |
+|  - Category detection                              |
+|  - Experience & certifications                     |
+|  - Missing fields                                  |
+|  -> Structured JSON                                |
++---------------------------+------------------------+
+                            |
+                            v
++----------------------------------------------------+
+|      ML Layer – Validation & Anomaly Detection     |
+|  - Missing / malformed data                        |
+|  - Duplicate detection                             |
+|  - Outlier detection                               |
++---------------------------+------------------------+
+                            |
+                            v
++----------------------------------------------------+
+|      LLM Agent 2 – Eligibility Screening           |
+|  - Rule interpretation                             |
+|  - Fast-track identification                       |
+|  - Decision rationale                              |
++---------------------------+------------------------+
+                            |
+                            v
++----------------------------------------------------+
+|      ML Layer – Confidence Scoring                 |
+|  - Risk scoring                                    |
+|  - Auto vs manual thresholds                       |
++---------------------------+------------------------+
+                            |
+                            v
++----------------------------------------------------+
+|                Decision Router                     |
+|  - Auto-process                                    |
+|  - Request correction                              |
+|  - Human review                                    |
++---------------------------+------------------------+
+                            |
+                            v
++----------------------------------------------------+
+|              Reviewer Dashboard                    |
+|  - Ranked applications                             |
+|  - AI explanations                                 |
+|  - Final decision & audit trail                    |
++----------------------------------------------------+
 
 ## Agent Breakdown
 
