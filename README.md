@@ -49,66 +49,7 @@ Application Intake
 → Decision Routing  
 → Reviewer Dashboard
 
-(See architecture diagram below.)
 
-+----------------------------------------------------+
-|                Application Intake                  |
-|        (Forms | PDFs | Bulk Uploads | Zendesk)     |
-+---------------------------+------------------------+
-                            |
-                            v
-+----------------------------------------------------+
-|        Document Processing & Normalization         |
-|     OCR | Text Extraction | PII Masking | Tagging  |
-+---------------------------+------------------------+
-                            |
-                            v
-+----------------------------------------------------+
-|      LLM Agent 1 – Data Extraction                 |
-|  - Category detection                              |
-|  - Experience & certifications                     |
-|  - Missing fields                                  |
-|  -> Structured JSON                                |
-+---------------------------+------------------------+
-                            |
-                            v
-+----------------------------------------------------+
-|      ML Layer – Validation & Anomaly Detection     |
-|  - Missing / malformed data                        |
-|  - Duplicate detection                             |
-|  - Outlier detection                               |
-+---------------------------+------------------------+
-                            |
-                            v
-+----------------------------------------------------+
-|      LLM Agent 2 – Eligibility Screening           |
-|  - Rule interpretation                             |
-|  - Fast-track identification                       |
-|  - Decision rationale                              |
-+---------------------------+------------------------+
-                            |
-                            v
-+----------------------------------------------------+
-|      ML Layer – Confidence Scoring                 |
-|  - Risk scoring                                    |
-|  - Auto vs manual thresholds                       |
-+---------------------------+------------------------+
-                            |
-                            v
-+----------------------------------------------------+
-|                Decision Router                     |
-|  - Auto-process                                    |
-|  - Request correction                              |
-|  - Human review                                    |
-+---------------------------+------------------------+
-                            |
-                            v
-+----------------------------------------------------+
-|              Reviewer Dashboard                    |
-|  - Ranked applications                             |
-|  - AI explanations                                 |
-|  - Final decision & audit trail                    |
-+----------------------------------------------------+
 
 ## Agent Breakdown
 
